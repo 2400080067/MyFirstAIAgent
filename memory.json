@@ -1,0 +1,14 @@
+[
+    {
+        "key": "name",
+        "value": "Krishna"
+    },
+    {
+        "key": "my favorite language",
+        "value": "Python"
+    },
+    {
+        "key": "my favourite language",
+        "value": "C"
+    }
+]
