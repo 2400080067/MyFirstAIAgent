@@ -1,4 +1,5 @@
 from ollama import chat
+from agent_core import CODING_ASSISTANT_PROMPT
 from datetime import datetime
 import json
 import re
@@ -78,8 +79,11 @@ def web_search(query):
 
 def save_memory(key, value):
 
-    with open("memory.json", "r") as file:
-        memories = json.load(file)
+    try:
+        with open("memory.json", "r", encoding="utf-8") as file:
+            memories = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        memories = []
 
     # Check if the memory already exists
     for memory in memories:
@@ -106,8 +110,11 @@ def save_memory(key, value):
 
 
 def load_memory():
-    with open("memory.json", "r") as file:
-        return json.load(file)
+    try:
+        with open("memory.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return []
 
 def find_memory(key):
     memories = load_memory()
@@ -705,7 +712,8 @@ messages = [
             "For web search results, use the information returned by the tool "
             "to give the user a clear and direct answer. "
             "Always include the source title and URL for relevant web search results. "
-            "Do not remove or hide URLs from search results."
+            "Do not remove or hide URLs from search results. "
+            f"{CODING_ASSISTANT_PROMPT}"
         )
     }
 ]

@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 .idea/
 .streamlit/secrets.toml
+data/
+chat_history.json
+memory.json
